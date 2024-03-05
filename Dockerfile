@@ -1,11 +1,8 @@
-# Use an official Nginx image as the base image
-FROM nginx
+# Use official nginx image as the base image
+FROM nginx:latest
 
-# Copy the built Angular app to the appropriate location in the container
-COPY dist/integrax-frontend-gcl /usr/share/nginx/html
+# Copy the build output to replace the default nginx contents.
+COPY dist /usr/share/nginx/html
 
-# Expose port 80 for the Nginx server
+# Expose port 80
 EXPOSE 80
-
-# Start the Nginx server when the container starts
-CMD ["nginx", "-g", "daemon off;"]
