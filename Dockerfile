@@ -2,7 +2,7 @@
 FROM nginx
 
 # Copy the built Angular app to the appropriate location in the container
-COPY dist/my-angular-app /usr/share/nginx/html
+COPY dist/integrax-frontend-gcl /usr/share/nginx/html
 
 # Expose port 80 for the Nginx server
 EXPOSE 80
