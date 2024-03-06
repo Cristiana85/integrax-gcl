@@ -7,11 +7,12 @@ RUN npm run build
 
 ### STAGE 2: Setup ###
 FROM nginx
-## From build stage copy over the artifacts in dist folder to default nginx public folder
-COPY --from=build /app/dist/integrax-frontend-gcl/browser /usr/share/nginx/html
-COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
+## From build stage copy over the artifacts in dist folder to default nginx public folder
+#COPY --from=build /app/dist/integrax-frontend-gcl/browser /usr/share/nginx/html
+COPY --from=build /app/dist/integrax-frontend-gcl /var/www/html/
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
 
 CMD ["nginx", "-g", "daemon off;"]
 
