@@ -7,6 +7,6 @@ COPY . /app
 WORKDIR /app
 # Run the following commands
 RUN npm install
-RUN npm run build
-RUN npm install -g serve
-CMD serve -s build
+RUN npm run build --prod
+#RUN npm install -g serve
+#CMD serve -s build
