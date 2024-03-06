@@ -6,6 +6,5 @@ COPY . .
 RUN npm run build
 FROM nginx:stable
 RUN rm /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist/ /usr/share/nginx/html
-EXPOSE 80 443
-CMD [ "nginx", "-g", "daemon off;" ]
+COPY --from=build /app/dist/integrax-frontend-gcl /usr/share/nginx/html
+COPY --from=build /nginx.conf /etc/nginx/conf.d/default.conf
