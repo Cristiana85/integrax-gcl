@@ -1,6 +1,6 @@
 FROM node:13.3.0 AS compile-image    
 COPY package.json package-lock.json ./    
-RUN npm install && mkdir /angular-app
+RUN npm install && mkdir /integrax-frontend-gcl
 ENV PATH="./node_modules/.bin:$PATH"
 WORKDIR /integrax-frontend-gcl
 COPY . .
