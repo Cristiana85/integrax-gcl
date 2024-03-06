@@ -1,7 +1,7 @@
-FROM node:12.0.0-alpine AS builder
-COPY . ./integrax-frontend-gcl
-WORKDIR /integrax-frontend-gcl
+FROM node:latest AS builder
+COPY . ./src/app
+WORKDIR /src/app
 RUN npm i
 RUN ng build --prod
 FROM nginx:1.15.8-alpine
-COPY --from=builder /integrax-frontend-gcl/dist/angular-docker/ /usr/share/nginx/html
+COPY --from=builder /dist/integrax-frontend-gcl/ /usr/share/nginx/html
