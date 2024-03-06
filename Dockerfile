@@ -1,4 +1,15 @@
+# Stage 1
+FROM node:latest as build
+WORKDIR /dist
+COPY . ./
+RUN npm install
+RUN npm run build
+RUN npm install -g serve
+CMD serve -s build
 
-FROM nginx:1.17.1-alpine
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY /src/app/dist/integrax-frontend-gcl /usr/share/nginx/html
+# Stage 2 - the production environment
+FROM nginx:alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
