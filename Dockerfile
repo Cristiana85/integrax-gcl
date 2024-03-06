@@ -1,8 +1,8 @@
-# Use official nginx image as the base image
-FROM nginx:latest
+FROM node AS build
+WORKDIR /usr/src/app
+...
+RUN ng build --configuration=production
 
-# Copy the build output to replace the default nginx contents.
-COPY dist /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
+FROM nginx
+COPY nginx/staging-default.conf /etc/nginx/conf.d/default.conf
+COPY --from=build ./usr/src/app/dist/integrax-frontend-gcl /usr/share/nginx/html/
