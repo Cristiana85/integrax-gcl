@@ -1,15 +1,12 @@
-# Stage 1
-FROM node:latest as build
-WORKDIR /src
-COPY . ./
+# Let's use a node image based on alpine
+# Alpine is a lightweight Linux distribution, that's why
+FROM node:alpine
+# Copy all the code present here to the docker
+COPY . /src/app
+# Change working directory to code_app
+WORKDIR /src/app
+# Run the following commands
 RUN npm install
 RUN npm run build
 RUN npm install -g serve
 CMD serve -s build
-
-# Stage 2 - the production environment
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build src/app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
