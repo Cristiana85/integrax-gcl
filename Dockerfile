@@ -1,8 +1,9 @@
-# Use official nginx image as the base image
-FROM nginx:latest
-
-# Copy the build output to replace the default nginx contents.
-COPY dist /usr/share/nginx/html
-
-# Expose port 80
-EXPOSE 80
+# Stage 1
+FROM node:latest as node
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN npm run build  --prod
+# Stage 2
+FROM nginx:alpine
+COPY --from=node /app/dist/integrax-frontend-gcl /usr/share/nginx/html
