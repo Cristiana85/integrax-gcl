@@ -9,7 +9,7 @@ RUN npm run build
 FROM nginx
 ## Copy our default nginx config
 COPY nginx/default.conf /etc/nginx/conf.d
-COPY nginx/default.conf /etc/nginx/nginx.conf
+COPY default.conf /etc/nginx/nginx.conf
 ## Remove default nginx website
 RUN rm -rf /usr/share/nginx/html/*
 ## From build stage copy over the artifacts in dist folder to default nginx public folder
