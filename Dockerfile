@@ -1,12 +1,8 @@
-# Let's use a node image based on alpine
-# Alpine is a lightweight Linux distribution, that's why
-FROM node:alpine
-# Copy all the code present here to the docker
-COPY . /src/app
-# Change working directory to code_app
-WORKDIR /src/app
-# Run the following commands
-RUN npm install
-RUN npm run build
-RUN npm install -g serve
-CMD serve -s build
+# Use official nginx image as the base image
+FROM nginx:latest
+
+# Copy the build output to replace the default nginx contents.
+COPY dist /usr/share/nginx/html
+
+# Expose port 80
+EXPOSE 80
