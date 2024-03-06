@@ -13,7 +13,10 @@ COPY nginx/default.conf /etc/nginx/conf.d/
 RUN rm -rf /usr/share/nginx/html/*
 ## From build stage copy over the artifacts in dist folder to default nginx public folder
 COPY --from=build /app/dist/integrax-frontend-gcl /usr/share/nginx/html
+COPY /nginx.conf  /etc/nginx/conf.d/default.conf
+
 CMD ["nginx", "-g", "daemon off;"]
+
 
 #FROM nginx:stable
 #RUN rm /etc/nginx/conf.d/default.conf
