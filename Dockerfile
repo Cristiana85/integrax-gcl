@@ -22,7 +22,7 @@ RUN npm run build
 FROM nginx:latest
 
 # Copy the build output to replace the default nginx contents.
-COPY --from=builder /app/dist/comp-lib /usr/share/nginx/html
+COPY --from=builder /dist/integrax-frontend-gcl /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
