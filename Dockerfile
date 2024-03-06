@@ -1,21 +1,7 @@
-FROM node:latest AS build
-
+FROM node:12.7-alpine AS build
 WORKDIR /src/app
-ENV PATH /src/app/node_modules/.bin:$PATH
-
 COPY package.json /src/app/
-
 RUN npm install
-
-ADD src /src/app/src
-ADD public /src/app/public
-
-COPY . /src/app
+COPY . .
 RUN npm run build
-
-FROM nginx:1.13.12-alpine
-COPY --from=build /src/app/build /share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]`
-
 
