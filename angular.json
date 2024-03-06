@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/integrax-frontend-gcl",
+            "outputPath": "src/app/dist/integrax-frontend-gcl",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [

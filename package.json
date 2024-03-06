@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:integrax-frontend-gcl": "node dist/integrax-frontend-gcl/server/server.mjs"
+    "serve:ssr:integrax-frontend-gcl": "node src/app/dist/integrax-frontend-gcl/server/server.mjs"
   },
   "private": true,
   "dependencies": {
