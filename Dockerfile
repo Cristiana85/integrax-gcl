@@ -1,6 +1,5 @@
 FROM node:latest AS build
 WORKDIR /app
-RUN npm cache clean --force
 COPY package*.json ./
 RUN npm install
 COPY . .
