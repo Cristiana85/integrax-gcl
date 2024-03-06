@@ -1,28 +1,22 @@
-# Stage 1: Compile and Build angular codebase
+FROM node:latest AS build
 
-# Use official node image as the base image
-FROM node:latest as build
+RUN mkdir -p /src/app/
 
-# Set the working directory
-WORKDIR /app
+WORKDIR /src/app
+ENV PATH /src/app/node_modules/.bin:$PATH
 
-# Add the source code to app
-COPY ./ /app/
+COPY package.json /src/app/
 
-# Install all the dependencies
 RUN npm install
+RUN npm install react-scripts -g
 
-# Generate the build of the application
+ADD src /src/app/src
+ADD public /src/app/public
+
+COPY . /src/app
 RUN npm run build
 
-
-# Stage 2: Serve app with nginx server
-
-# Use official nginx image as the base image
-FROM nginx:latest
-
-# Copy the build output to replace the default nginx contents.
-COPY --from=builder /dist/integrax-frontend-gcl /usr/share/nginx/html
-
-# Expose port 80
+FROM nginx:1.13.12-alpine
+COPY --from=build /src/app/build /share/nginx/html
 EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]`
