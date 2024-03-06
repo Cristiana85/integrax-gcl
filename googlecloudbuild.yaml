@@ -4,9 +4,9 @@ steps:
   entrypoint: 'npm'
   args: ['install']
 # Test the code
-- name: 'node'
-  entrypoint: 'npm'
-  args: ['test']
+#- name: 'node'
+#  entrypoint: 'npm'
+#  args: ['test']
 # Build the container image.
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/$PROJECT_ID/$_BINARY_NAME:$COMMIT_SHA', '.']

@@ -1,4 +1,3 @@
-ENV CHROME_BIN=/usr/bin/google-chrome
 # Let's use a node image based on alpine
 # Alpine is a lightweight Linux distribution, that's why
 FROM node:alpine
