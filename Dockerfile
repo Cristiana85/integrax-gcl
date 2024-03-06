@@ -1,11 +1,10 @@
-FROM node:alpine as builder
-WORKDIR '/app'
-COPY ./package.json ./
-RUN npm install
+FROM node:13.3.0 AS compile-image    
+COPY package.json package-lock.json ./    
+RUN npm install && mkdir /angular-app
+ENV PATH="./node_modules/.bin:$PATH"
+WORKDIR /integrax-frontend-gcl
 COPY . .
-RUN npm run build
-
+RUN ng build --prod
 FROM nginx
-EXPOSE 3000
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build /usr/share/nginx/html
+RUN rm -rf /usr/share/nginx/html/*
+COPY --from=compile-image /integrax-frontend-gcl/dist /usr/share/nginx/html
